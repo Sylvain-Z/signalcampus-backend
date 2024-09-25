@@ -30,3 +30,5 @@
 2024-09-24 20:49:07:497 [31merror[39m: [31mErreur lors de la création d'un signalement: User.findAll is not a function[39m
 2024-09-24 20:51:58:5158 [31merror[39m: [31mErreur lors de la création d'un signalement: User.findAll is not a function[39m
 2024-09-24 20:52:12:5212 [31merror[39m: [31mErreur lors de la création d'un signalement: User.findAll is not a function[39m
+2024-09-25 15:58:00:580 [31merror[39m: [31mErreur lors de l'envoi de l'email à undefined: connect ECONNREFUSED 127.0.0.1:587[39m
+2024-09-25 16:00:52:052 [31merror[39m: [31mErreur lors de l'envoi de l'email à undefined: connect ECONNREFUSED 127.0.0.1:587[39m

@@ -1,8 +1,8 @@
-const db = require('../models');
+const db = require("../models");
 const Signalement = db.signalements;
-const NotificationService = require('../utils/notificationService');
+const NotificationService = require("../utils/notificationService");
 const User = db.users;
-const Logger = require('../utils/logger');
+const Logger = require("../utils/logger");
 
 /**
  * Crée un nouveau signalement
@@ -10,13 +10,13 @@ const Logger = require('../utils/logger');
  */
 exports.create = async (req, res) => {
   try {
-    console.log('Début de la création du signalement');
-    console.log('Données de la requête:', req.body);
-    console.log('Utilisateur:', req.user);
+    console.log("Début de la création du signalement");
+    console.log("Données de la requête:", req.body);
+    console.log("Utilisateur:", req.user);
 
     // Vérification de l'authentification
     if (!req.user) {
-      throw new Error('Utilisateur non authentifié');
+      throw new Error("Utilisateur non authentifié");
     }
 
     // Extraction des données
@@ -30,23 +30,23 @@ exports.create = async (req, res) => {
       reportingContent,
     });
 
-    console.log('Signalement créé avec succès:', signalement.id);
+    console.log("Signalement créé avec succès:", signalement.id);
 
     // Récupération du personnel (si nécessaire)
     const personnel = await User.findAll({ where: { role: 1 } });
-    console.log('Nombre de personnel notifié:', personnel.length);
+    console.log("Nombre de personnel notifié:", personnel.length);
 
     // Envoi de notifications (si nécessaire)
     for (const p of personnel) {
       await NotificationService.notifyPersonnelNewSignalement(p, signalement);
     }
 
-    console.log('Notifications envoyées avec succès');
+    console.log("Notifications envoyées avec succès");
 
     // Envoyer la réponse
     res.status(201).send(signalement);
   } catch (error) {
-    console.error('Erreur détaillée:', error);
+    console.error("Erreur détaillée:", error);
     Logger.error(
       `Erreur lors de la création d'un signalement: ${error.message}`
     );
@@ -61,7 +61,7 @@ exports.create = async (req, res) => {
       console.error("Erreur après l'envoi de la réponse:", error);
     }
   } finally {
-    console.log('Fin du traitement de la création du signalement');
+    console.log("Fin du traitement de la création du signalement");
   }
 };
 
@@ -79,7 +79,7 @@ exports.findAll = async (req, res) => {
       condition.category = category;
     }
     if (isProcessed !== undefined) {
-      condition.isProcessed = isProcessed === 'true';
+      condition.isProcessed = isProcessed === "true";
     }
 
     const signalements = await Signalement.findAll({ where: condition });
@@ -145,7 +145,7 @@ exports.update = async (req, res) => {
     if (req.user.role !== 1) {
       return res.status(403).send({
         message:
-          'Accès non autorisé. Seul le personnel peut mettre à jour les signalements.',
+          "Accès non autorisé. Seul le personnel peut mettre à jour les signalements.",
       });
     }
 
@@ -155,7 +155,7 @@ exports.update = async (req, res) => {
 
     if (num == 1) {
       res.send({
-        message: 'Le signalement a été mis à jour avec succès.',
+        message: "Le signalement a été mis à jour avec succès.",
       });
     } else {
       res.send({
@@ -180,7 +180,7 @@ exports.delete = async (req, res) => {
     if (req.user.role !== 1) {
       return res.status(403).send({
         message:
-          'Accès non autorisé. Seul le personnel peut supprimer les signalements.',
+          "Accès non autorisé. Seul le personnel peut supprimer les signalements.",
       });
     }
 
@@ -190,7 +190,7 @@ exports.delete = async (req, res) => {
 
     if (num == 1) {
       res.send({
-        message: 'Le signalement a été supprimé avec succès!',
+        message: "Le signalement a été supprimé avec succès!",
       });
     } else {
       res.send({
@@ -232,7 +232,7 @@ exports.markAsProcessed = async (req, res) => {
     if (req.user.role !== 1) {
       return res.status(403).send({
         message:
-          'Accès non autorisé. Seul le personnel peut marquer les signalements comme traités.',
+          "Accès non autorisé. Seul le personnel peut marquer les signalements comme traités.",
       });
     }
 
@@ -246,7 +246,7 @@ exports.markAsProcessed = async (req, res) => {
     );
     if (num == 1) {
       res.send({
-        message: 'Le signalement a été marqué comme traité avec succès.',
+        message: "Le signalement a été marqué comme traité avec succès.",
       });
     } else {
       res.send({
