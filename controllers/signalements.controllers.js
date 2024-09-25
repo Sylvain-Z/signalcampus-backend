@@ -1,8 +1,8 @@
-const db = require("../models");
+const db = require('../models');
 const Signalement = db.signalements;
-const NotificationService = require("../utils/notificationService");
-const User = require("../models/user");
-const Logger = require("../utils/logger");
+const NotificationService = require('../utils/notificationService');
+const User = db.users;
+const Logger = require('../utils/logger');
 
 /**
  * Crée un nouveau signalement
@@ -10,54 +10,58 @@ const Logger = require("../utils/logger");
  */
 exports.create = async (req, res) => {
   try {
-    // Extraction des données du corps de la requête
-    const { category, place, photos } = req.body;
+    console.log('Début de la création du signalement');
+    console.log('Données de la requête:', req.body);
+    console.log('Utilisateur:', req.user);
 
-    // Création du signalement dans la base de données
+    // Vérification de l'authentification
+    if (!req.user) {
+      throw new Error('Utilisateur non authentifié');
+    }
+
+    // Extraction des données
+    const { category, place, reportingContent } = req.body;
+
+    // Création du signalement
     const signalement = await Signalement.create({
       idUser: req.user.id,
       category,
       place,
-      photos,
+      reportingContent,
     });
 
-    // Journalisation de la création du signalement
-    Logger.info(
-      `Nouveau signalement créé: ID ${signalement.id} par l'utilisateur ${req.user.id}, catégorie: ${category}`
-    );
+    console.log('Signalement créé avec succès:', signalement.id);
 
-    // Récupération de tous les membres du personnel (rôle 1)
+    // Récupération du personnel (si nécessaire)
     const personnel = await User.findAll({ where: { role: 1 } });
+    console.log('Nombre de personnel notifié:', personnel.length);
 
-    // Vérification si le signalement est urgent basé sur sa catégorie
-    const isUrgent = NotificationService.isCategoryUrgent(category);
-
-    // Envoi de notifications à chaque membre du personnel
+    // Envoi de notifications (si nécessaire)
     for (const p of personnel) {
       await NotificationService.notifyPersonnelNewSignalement(p, signalement);
     }
 
-    // Journalisation supplémentaire pour les signalements urgents
-    if (isUrgent) {
-      Logger.warn(
-        `Signalement URGENT créé: ID ${signalement.id}, catégorie: ${category}`
-      );
-    }
+    console.log('Notifications envoyées avec succès');
 
-    // Envoi de la réponse au client
+    // Envoyer la réponse
     res.status(201).send(signalement);
   } catch (error) {
-    // Journalisation de l'erreur
+    console.error('Erreur détaillée:', error);
     Logger.error(
       `Erreur lors de la création d'un signalement: ${error.message}`
     );
-
-    // Envoi de la réponse d'erreur au client
-    res.status(500).send({
-      message:
-        error.message ||
-        "Une erreur s'est produite lors de la création du signalement.",
-    });
+    // Vérifier si la réponse n'a pas déjà été envoyée
+    if (!res.headersSent) {
+      res.status(500).send({
+        message:
+          "Une erreur s'est produite lors de la création du signalement.",
+        error: error.message,
+      });
+    } else {
+      console.error("Erreur après l'envoi de la réponse:", error);
+    }
+  } finally {
+    console.log('Fin du traitement de la création du signalement');
   }
 };
 
@@ -75,7 +79,7 @@ exports.findAll = async (req, res) => {
       condition.category = category;
     }
     if (isProcessed !== undefined) {
-      condition.isProcessed = isProcessed === "true";
+      condition.isProcessed = isProcessed === 'true';
     }
 
     const signalements = await Signalement.findAll({ where: condition });
@@ -85,6 +89,25 @@ exports.findAll = async (req, res) => {
       message:
         error.message ||
         "Une erreur s'est produite lors de la récupération des signalements.",
+    });
+  }
+};
+
+/**
+ * Récupère tous les signalements d'un utilisateur spécifique
+ * @route GET /users/:userId/signalements
+ */
+exports.findByUser = async (req, res) => {
+  const userId = req.params.userId;
+  console.log(`Récupération des signalements pour l'utilisateur ${userId}`);
+  try {
+    const signalements = await Signalement.findAll({
+      where: { idUser: userId },
+    });
+    res.send(signalements);
+  } catch (error) {
+    res.status(500).send({
+      message: `Erreur lors de la récupération des signalements pour l'utilisateur avec l'id=${userId}`,
     });
   }
 };
@@ -122,7 +145,7 @@ exports.update = async (req, res) => {
     if (req.user.role !== 1) {
       return res.status(403).send({
         message:
-          "Accès non autorisé. Seul le personnel peut mettre à jour les signalements.",
+          'Accès non autorisé. Seul le personnel peut mettre à jour les signalements.',
       });
     }
 
@@ -132,7 +155,7 @@ exports.update = async (req, res) => {
 
     if (num == 1) {
       res.send({
-        message: "Le signalement a été mis à jour avec succès.",
+        message: 'Le signalement a été mis à jour avec succès.',
       });
     } else {
       res.send({
@@ -157,7 +180,7 @@ exports.delete = async (req, res) => {
     if (req.user.role !== 1) {
       return res.status(403).send({
         message:
-          "Accès non autorisé. Seul le personnel peut supprimer les signalements.",
+          'Accès non autorisé. Seul le personnel peut supprimer les signalements.',
       });
     }
 
@@ -167,7 +190,7 @@ exports.delete = async (req, res) => {
 
     if (num == 1) {
       res.send({
-        message: "Le signalement a été supprimé avec succès!",
+        message: 'Le signalement a été supprimé avec succès!',
       });
     } else {
       res.send({
@@ -209,7 +232,7 @@ exports.markAsProcessed = async (req, res) => {
     if (req.user.role !== 1) {
       return res.status(403).send({
         message:
-          "Accès non autorisé. Seul le personnel peut marquer les signalements comme traités.",
+          'Accès non autorisé. Seul le personnel peut marquer les signalements comme traités.',
       });
     }
 
@@ -223,7 +246,7 @@ exports.markAsProcessed = async (req, res) => {
     );
     if (num == 1) {
       res.send({
-        message: "Le signalement a été marqué comme traité avec succès.",
+        message: 'Le signalement a été marqué comme traité avec succès.',
       });
     } else {
       res.send({

@@ -12,3 +12,21 @@
 2024-09-24 13:54:03:543 [31merror[39m: [31mImpossible de se connecter à la base de données.[39m
 2024-09-24 13:58:53:5853 [31merror[39m: [31mErreur lors de la synchronisation de la base de données: Erreur de syntaxe près de '[]' à la ligne 1[39m
 2024-09-24 14:10:49:1049 [31merror[39m: [31mErreur lors de la synchronisation de la base de données: Erreur de syntaxe près de '[object Object]' à la ligne 1[39m
+2024-09-24 20:17:33:1733 [31merror[39m: [31mErreur lors de la création d'un signalement: Cannot read properties of undefined (reading 'id')[39m
+2024-09-24 20:20:43:2043 [31merror[39m: [31mErreur lors de la création d'un signalement: Cannot read properties of undefined (reading 'id')[39m
+2024-09-24 20:20:55:2055 [31merror[39m: [31mErreur lors de la création d'un signalement: Cannot read properties of undefined (reading 'id')[39m
+2024-09-24 20:22:13:2213 [31merror[39m: [31mErreur lors de la création d'un signalement: Cannot read properties of undefined (reading 'id')[39m
+2024-09-24 20:22:31:2231 [31merror[39m: [31mErreur lors de la création d'un signalement: User.findAll is not a function[39m
+2024-09-24 20:23:49:2349 [31merror[39m: [31mErreur lors de la création d'un signalement: User.findAll is not a function[39m
+2024-09-24 20:25:49:2549 [31merror[39m: [31mErreur lors de la création d'un signalement: User.findAll is not a function[39m
+2024-09-24 20:28:08:288 [31merror[39m: [31mErreur lors de la création d'un signalement: User.findAll is not a function[39m
+2024-09-24 20:29:30:2930 [31merror[39m: [31mErreur lors de la création d'un signalement: User.findAll is not a function[39m
+2024-09-24 20:31:11:3111 [31merror[39m: [31mErreur lors de la création d'un signalement: User.findAll is not a function[39m
+2024-09-24 20:38:26:3826 [31merror[39m: [31mErreur lors de la création d'un signalement: User.findAll is not a function[39m
+2024-09-24 20:40:32:4032 [31merror[39m: [31mErreur lors de la création d'un signalement: User.findAll is not a function[39m
+2024-09-24 20:42:10:4210 [31merror[39m: [31mErreur lors de la création d'un signalement: User.findAll is not a function[39m
+2024-09-24 20:44:13:4413 [31merror[39m: [31mErreur lors de la création d'un signalement: User.findAll is not a function[39m
+2024-09-24 20:45:50:4550 [31merror[39m: [31mErreur lors de la création d'un signalement: User.findAll is not a function[39m
+2024-09-24 20:49:07:497 [31merror[39m: [31mErreur lors de la création d'un signalement: User.findAll is not a function[39m
+2024-09-24 20:51:58:5158 [31merror[39m: [31mErreur lors de la création d'un signalement: User.findAll is not a function[39m
+2024-09-24 20:52:12:5212 [31merror[39m: [31mErreur lors de la création d'un signalement: User.findAll is not a function[39m

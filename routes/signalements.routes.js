@@ -1,7 +1,7 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const signalementController = require("../controllers/signalements.controllers");
-const auth = require("../middleware/auth");
+const signalementController = require('../controllers/signalements.controllers');
+const auth = require('../middleware/auth');
 
 /**
  * Middleware pour vérifier si l'utilisateur est un membre du personnel (rôle 1)
@@ -10,7 +10,7 @@ const isPersonnel = (req, res, next) => {
   if (req.user.role !== 1) {
     return res.status(403).send({
       message:
-        "Accès non autorisé. Seul le personnel peut effectuer cette action.",
+        'Accès non autorisé. Seul le personnel peut effectuer cette action.',
     });
   }
   next();
@@ -21,14 +21,14 @@ const isPersonnel = (req, res, next) => {
  * Accessible à tous les utilisateurs authentifiés
  * @route POST /signalements
  */
-router.post("/signalements", auth, signalementController.create);
+router.post('/signalements', auth, signalementController.create);
 
 /**
  * Route pour récupérer tous les signalements
  * Accessible uniquement au personnel
  * @route GET /signalements
  */
-router.get("/signalements", auth, isPersonnel, signalementController.findAll);
+router.get('/signalements', auth, isPersonnel, signalementController.findAll);
 
 /**
  * Route pour récupérer un signalement spécifique
@@ -36,13 +36,13 @@ router.get("/signalements", auth, isPersonnel, signalementController.findAll);
  * @route GET /signalements/:id
  */
 router.get(
-  "/signalements/:id",
+  '/signalements/:id',
   auth,
   async (req, res, next) => {
-    const signalement = await Signalement.findByPk(req.params.id);
+    const signalement = await signalement.findByPk(req.params.id);
     if (!signalement) {
       return res.status(404).send({
-        message: "Signalement non trouvé.",
+        message: 'Signalement non trouvé.',
       });
     }
     if (req.user.id !== signalement.idUser && req.user.role !== 1) {
@@ -62,7 +62,7 @@ router.get(
  * @route PUT /signalements/:id
  */
 router.put(
-  "/signalements/:id",
+  '/signalements/:id',
   auth,
   isPersonnel,
   signalementController.update
@@ -74,7 +74,7 @@ router.put(
  * @route DELETE /signalements/:id
  */
 router.delete(
-  "/signalements/:id",
+  '/signalements/:id',
   auth,
   isPersonnel,
   signalementController.delete
@@ -86,13 +86,13 @@ router.delete(
  * @route GET /users/:userId/signalements
  */
 router.get(
-  "/users/:userId/signalements",
+  '/users/:userId/signalements',
   auth,
   (req, res, next) => {
     if (req.user.id !== parseInt(req.params.userId) && req.user.role !== 1) {
       return res.status(403).send({
         message:
-          "Accès non autorisé. Vous ne pouvez voir que vos propres signalements.",
+          'Accès non autorisé. Vous ne pouvez voir que vos propres signalements.',
       });
     }
     next();
@@ -106,7 +106,7 @@ router.get(
  * @route PUT /signalements/:id/process
  */
 router.put(
-  "/signalements/:id/process",
+  '/signalements/:id/process',
   auth,
   isPersonnel,
   signalementController.markAsProcessed

@@ -1,5 +1,5 @@
-const nodemailer = require("nodemailer");
-const Logger = require("./logger");
+const nodemailer = require('nodemailer');
+const Logger = require('./logger');
 
 class NotificationService {
   constructor() {
@@ -39,9 +39,9 @@ class NotificationService {
         to,
         subject: isUrgent ? `URGENT: ${subject}` : subject,
         text,
-        priority: isUrgent ? "high" : "normal",
+        priority: isUrgent ? 'high' : 'normal',
       });
-      Logger.info(`Email ${isUrgent ? "urgent " : ""}envoyé à ${to}`);
+      Logger.info(`Email ${isUrgent ? 'urgent ' : ''}envoyé à ${to}`);
     } catch (error) {
       Logger.error(
         `Erreur lors de l'envoi de l'email à ${to}: ${error.message}`
@@ -55,7 +55,7 @@ class NotificationService {
    * @param {number} signalementId - L'ID du signalement traité
    */
   async notifyUserSignalementProcessed(user, signalementId) {
-    const subject = "Votre signalement a été traité";
+    const subject = 'Votre signalement a été traité';
     const text = `Bonjour,\n\nVotre signalement (ID: ${signalementId}) a été traité. Merci pour votre contribution.\n\nCordialement,\nL'équipe de support`;
     await this.sendEmail(user.email, subject, text);
   }
@@ -67,18 +67,18 @@ class NotificationService {
    */
   async notifyPersonnelNewSignalement(personnel, signalement) {
     const isUrgent = this.URGENT_CATEGORIES.includes(signalement.category);
-    const subject = "Nouveau signalement";
+    const subject = 'Nouveau signalement';
     const categoryName = Object.keys(this.CATEGORIES).find(
       (key) => this.CATEGORIES[key] === signalement.category
     );
     const text = `Bonjour,\n\nUn nouveau signalement ${
-      isUrgent ? "URGENT " : ""
+      isUrgent ? 'URGENT ' : ''
     }(ID: ${
       signalement.id
     }) a été créé et nécessite votre attention immédiate.\n\nCatégorie: ${categoryName}\nLieu: ${
       signalement.place
     }\n\nVeuillez traiter ce signalement ${
-      isUrgent ? "en priorité" : "dès que possible"
+      isUrgent ? 'en priorité' : 'dès que possible'
     }.\n\nCordialement,\nSystème de gestion des signalements`;
     await this.sendEmail(personnel.email, subject, text, isUrgent);
   }

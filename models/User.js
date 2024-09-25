@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-  const User = sequelize.define("users", {
+  const User = sequelize.define('users', {
     login: {
       type: Sequelize.STRING,
       unique: true,
@@ -14,7 +14,7 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
       defaultValue: 0,
       validate: {
-        isIn: [[0, 1]]
+        isIn: [[0, 1]],
       },
     },
   });
