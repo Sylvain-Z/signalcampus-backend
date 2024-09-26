@@ -32,3 +32,16 @@
 2024-09-24 20:52:12:5212 [31merror[39m: [31mErreur lors de la création d'un signalement: User.findAll is not a function[39m
 2024-09-25 15:58:00:580 [31merror[39m: [31mErreur lors de l'envoi de l'email à undefined: connect ECONNREFUSED 127.0.0.1:587[39m
 2024-09-25 16:00:52:052 [31merror[39m: [31mErreur lors de l'envoi de l'email à undefined: connect ECONNREFUSED 127.0.0.1:587[39m
+2024-09-26 08:22:01:221 [31merror[39m: [31mErreur lors de la création d'un signalement urgent: Utilisateur non authentifié[39m
+2024-09-26 08:47:03:473 [31merror[39m: [31mErreur lors de la création d'un signalement urgent: Utilisateur non authentifié[39m
+2024-09-26 08:50:35:5035 [31merror[39m: [31mErreur lors de la création d'un signalement urgent: notNull Violation: signalements.idUser cannot be null,[39m
+[31mValidation error: Validation isIn on category failed[39m
+2024-09-26 08:55:27:5527 [31merror[39m: [31mErreur lors de la création d'un signalement urgent: Check constraint 'check_category' is violated.[39m
+2024-09-26 09:18:55:1855 [31merror[39m: [31mErreur lors de la création d'un signalement urgent: Check constraint 'check_category' is violated.[39m
+2024-09-26 09:25:21:2521 [31merror[39m: [31mErreur lors de la création d'un signalement urgent: NotificationService.notifyPersonnelUrgentSignalement is not a function[39m
+2024-09-26 09:25:47:2547 [31merror[39m: [31mErreur lors de la création d'un signalement urgent: NotificationService.notifyPersonnelUrgentSignalement is not a function[39m
+2024-09-26 09:26:25:2625 [31merror[39m: [31mErreur lors de la création d'un signalement urgent: NotificationService.notifyPersonnelUrgentSignalement is not a function[39m
+2024-09-26 09:26:35:2635 [31merror[39m: [31mErreur lors de la création d'un signalement urgent: NotificationService.notifyPersonnelUrgentSignalement is not a function[39m
+2024-09-26 09:29:02:292 [31merror[39m: [31mErreur lors de la création d'un signalement urgent: NotificationService.notifyPersonnelUrgentSignalement is not a function[39m
+2024-09-26 09:30:18:3018 [31merror[39m: [31mErreur lors de la création d'un signalement urgent: NotificationService.notifyPersonnelUrgentSignalement is not a function[39m
+2024-09-26 09:38:31:3831 [31merror[39m: [31mErreur lors de la création d'un signalement urgent: NotificationService.notifyPersonnelUrgentSignalement is not a function[39m

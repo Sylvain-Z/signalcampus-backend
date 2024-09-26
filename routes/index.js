@@ -19,6 +19,7 @@ router.get("/signalements", auth, signalementController.findAll);
 router.get("/signalements/:id", auth, signalementController.findOne);
 router.put("/signalements/:id", auth, signalementController.update);
 router.delete("/signalements/:id", auth, signalementController.delete);
+router.post("/signalements/urgent", signalementController.createUrgent);
 
 // Routes pour les utilisateurs
 router.post("/signup", userController.signup);

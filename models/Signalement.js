@@ -12,9 +12,9 @@ module.exports = (sequelize, Sequelize) => {
     category: {
       type: Sequelize.INTEGER,
       validate: {
-        isIn: [[0, 1, 2, 3]], // Ajoutez ici les valeurs valides pour la catégorie
+        isIn: [[1, 2, 3, 4]], // Utilisez des nombres au lieu de chaînes
       },
-      defaultValue: 0,
+      defaultValue: 4,
     },
     hours: {
       type: Sequelize.DATE,
@@ -29,7 +29,17 @@ module.exports = (sequelize, Sequelize) => {
     //   type: Sequelize.ARRAY(Sequelize.STRING),
     //   allowNull: true,
     // },
-    photos: {      type: Sequelize.TEXT,      allowNull: true,      get() {        const rawValue = this.getDataValue('photos');        return rawValue ? JSON.parse(rawValue) : [];      },      set(value) {        this.setDataValue('photos', JSON.stringify(value));      }    },
+    photos: {
+      type: Sequelize.TEXT,
+      allowNull: true,
+      get() {
+        const rawValue = this.getDataValue("photos");
+        return rawValue ? JSON.parse(rawValue) : [];
+      },
+      set(value) {
+        this.setDataValue("photos", JSON.stringify(value));
+      },
+    },
     // Champ pour indiquer si le signalement a été traité
     isProcessed: {
       type: Sequelize.BOOLEAN,

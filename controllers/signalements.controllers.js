@@ -3,6 +3,7 @@ const Signalement = db.signalements;
 const NotificationService = require("../utils/notificationService");
 const User = db.users;
 const Logger = require("../utils/logger");
+const DEFAULT_USER_ID = 1; // Assurez-vous que cet ID existe dans votre table des utilisateurs
 
 /**
  * Crée un nouveau signalement
@@ -261,5 +262,70 @@ exports.markAsProcessed = async (req, res) => {
       message:
         "Erreur lors du marquage du signalement comme traité avec l'id=" + id,
     });
+  }
+};
+
+/**
+ * Ajoute un signalement via le bouton
+ * @route PUT /signalements/urgent
+ */
+
+exports.createUrgent = async (req, res) => {
+  try {
+    console.log("Début de la création du signalement urgent");
+    console.log("Données de la requête:", req.body);
+
+    // Création d'un nouveau signalement urgent dans la base de données
+    const signalement = await Signalement.create({
+      idUser: DEFAULT_USER_ID,
+      isUrgent: true,
+      latitude: req.body.latitude || null,
+      longitude: req.body.longitude || null,
+      locality: req.body.locality || "Non spécifié",
+      hours: new Date(),
+      category: 4, // Utilisez le nombre 4 au lieu de la chaîne "4"
+      place: "Géolocalisé",
+      reportingContent: "Signalement urgent",
+    });
+
+    console.log("Signalement urgent créé avec succès:", signalement.id);
+
+    // Récupération de tous les utilisateurs avec le rôle de personnel (rôle 1)
+    const personnel = await User.findAll({ where: { role: 1 } });
+    console.log("Nombre de personnel à notifier:", personnel.length);
+
+    // Tentative d'envoi de notifications (si la fonction existe)
+    if (
+      typeof NotificationService.notifyPersonnelUrgentSignalement === "function"
+    ) {
+      for (const p of personnel) {
+        await NotificationService.notifyPersonnelUrgentSignalement(
+          p,
+          signalement
+        );
+      }
+      console.log("Notifications urgentes envoyées avec succès");
+    } else {
+      console.log("La fonction de notification urgente n'est pas disponible");
+      // Vous pouvez ici implémenter une solution de remplacement temporaire
+      // Par exemple, envoyer un email ou un log
+    }
+
+    // Envoi de la réponse au client avec le signalement créé
+    res.status(201).send(signalement);
+  } catch (error) {
+    console.error("Erreur détaillée:", error);
+    Logger.error(
+      `Erreur lors de la création d'un signalement urgent: ${error.message}`
+    );
+    if (!res.headersSent) {
+      res.status(500).send({
+        message:
+          "Une erreur s'est produite lors de la création du signalement urgent.",
+        error: error.message,
+      });
+    } else {
+      console.error("Erreur après l'envoi de la réponse:", error);
+    }
   }
 };

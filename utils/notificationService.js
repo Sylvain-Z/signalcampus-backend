@@ -1,5 +1,5 @@
-const nodemailer = require('nodemailer');
-const Logger = require('./logger');
+const nodemailer = require("nodemailer");
+const Logger = require("./logger");
 
 class NotificationService {
   constructor() {
@@ -19,10 +19,15 @@ class NotificationService {
       PHYSICAL: 1,
       SEXUAL: 2,
       CYBER: 3,
+      URGENT: 4,
     };
 
     // Définition des catégories considérées comme urgentes
-    this.URGENT_CATEGORIES = [this.CATEGORIES.PHYSICAL, this.CATEGORIES.SEXUAL];
+    this.URGENT_CATEGORIES = [
+      this.CATEGORIES.PHYSICAL,
+      this.CATEGORIES.SEXUAL,
+      this.CATEGORIES.URGENT,
+    ];
   }
 
   /**
@@ -39,9 +44,9 @@ class NotificationService {
         to,
         subject: isUrgent ? `URGENT: ${subject}` : subject,
         text,
-        priority: isUrgent ? 'high' : 'normal',
+        priority: isUrgent ? "high" : "normal",
       });
-      Logger.info(`Email ${isUrgent ? 'urgent ' : ''}envoyé à ${to}`);
+      Logger.info(`Email ${isUrgent ? "urgent " : ""}envoyé à ${to}`);
     } catch (error) {
       Logger.error(
         `Erreur lors de l'envoi de l'email à ${to}: ${error.message}`
@@ -55,7 +60,7 @@ class NotificationService {
    * @param {number} signalementId - L'ID du signalement traité
    */
   async notifyUserSignalementProcessed(user, signalementId) {
-    const subject = 'Votre signalement a été traité';
+    const subject = "Votre signalement a été traité";
     const text = `Bonjour,\n\nVotre signalement (ID: ${signalementId}) a été traité. Merci pour votre contribution.\n\nCordialement,\nL'équipe de support`;
     await this.sendEmail(user.email, subject, text);
   }
@@ -67,18 +72,18 @@ class NotificationService {
    */
   async notifyPersonnelNewSignalement(personnel, signalement) {
     const isUrgent = this.URGENT_CATEGORIES.includes(signalement.category);
-    const subject = 'Nouveau signalement';
+    const subject = "Nouveau signalement";
     const categoryName = Object.keys(this.CATEGORIES).find(
       (key) => this.CATEGORIES[key] === signalement.category
     );
     const text = `Bonjour,\n\nUn nouveau signalement ${
-      isUrgent ? 'URGENT ' : ''
+      isUrgent ? "URGENT " : ""
     }(ID: ${
       signalement.id
     }) a été créé et nécessite votre attention immédiate.\n\nCatégorie: ${categoryName}\nLieu: ${
       signalement.place
     }\n\nVeuillez traiter ce signalement ${
-      isUrgent ? 'en priorité' : 'dès que possible'
+      isUrgent ? "en priorité" : "dès que possible"
     }.\n\nCordialement,\nSystème de gestion des signalements`;
     await this.sendEmail(personnel.email, subject, text, isUrgent);
   }
@@ -92,5 +97,23 @@ class NotificationService {
     return this.URGENT_CATEGORIES.includes(category);
   }
 }
+
+exports.notifyPersonnelUrgentSignalement = async (personnel, signalement) => {
+  try {
+    // Implémentez ici la logique de notification urgente
+    // Par exemple, envoi d'un email, d'une notification push, etc.
+    console.log(
+      `Notification urgente envoyée au personnel ${personnel.id} pour le signalement ${signalement.id}`
+    );
+
+    // Exemple d'envoi d'email (vous devrez implémenter la fonction sendEmail)
+    // await sendEmail(personnel.email, 'Signalement Urgent', `Un nouveau signalement urgent a été créé. ID: ${signalement.id}`);
+  } catch (error) {
+    console.error(
+      `Erreur lors de l'envoi de la notification urgente: ${error.message}`
+    );
+    // Gérez l'erreur comme approprié pour votre application
+  }
+};
 
 module.exports = new NotificationService();
