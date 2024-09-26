@@ -38,7 +38,7 @@ console.log(
 console.log("DB_NAME:", process.env.DB_NAME);
 
 // Middleware pour permettre les requêtes cross-origin
-app.use(cors());
+app.use(cors('localhost:3001'));
 
 // Middleware pour ajouter des en-têtes de sécurité
 app.use(helmet());

@@ -70,7 +70,7 @@ exports.signup = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { login, password } = req.body;
-
+    console.log(req.body)
     // Recherche de l'utilisateur dans la base de données
     const user = await User.findOne({ where: { login } });
 

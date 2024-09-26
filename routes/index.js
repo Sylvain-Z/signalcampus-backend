@@ -15,17 +15,17 @@ router.get("/hello", (req, res) => {
 
 // Routes pour les signalements
 router.post("/signalements", auth, signalementController.create);
-router.get("/signalements", auth, signalementController.findAll);
+router.get("/signalements", signalementController.findAll);
 router.get("/signalements/:id", auth, signalementController.findOne);
 router.put("/signalements/:id", auth, signalementController.update);
 router.delete("/signalements/:id", auth, signalementController.delete);
 router.post("/signalements/urgent", signalementController.createUrgent);
 
 // Routes pour les utilisateurs
-router.post("/signup", userController.signup);
+router.post("/signup", userController.signup );
 router.post("/login", userController.login);
 router.get("/users", userController.findAll);
-router.get("/users/:id", auth, userController.findOne);
+router.get("/users/:id", userController.findOne);
 router.put("/users/:id", auth, userController.update);
 router.get(
   "/users/:userId/signalements",

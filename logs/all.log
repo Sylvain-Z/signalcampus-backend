@@ -45,3 +45,10 @@
 2024-09-26 09:29:02:292 [31merror[39m: [31mErreur lors de la création d'un signalement urgent: NotificationService.notifyPersonnelUrgentSignalement is not a function[39m
 2024-09-26 09:30:18:3018 [31merror[39m: [31mErreur lors de la création d'un signalement urgent: NotificationService.notifyPersonnelUrgentSignalement is not a function[39m
 2024-09-26 09:38:31:3831 [31merror[39m: [31mErreur lors de la création d'un signalement urgent: NotificationService.notifyPersonnelUrgentSignalement is not a function[39m
+2024-09-26 13:19:39:1939 [31merror[39m: [31mErreur lors de la création de l'utilisateur: Validation error[39m
+2024-09-26 14:15:36:1536 [31merror[39m: [31mErreur lors de la création d'un signalement: Utilisateur non authentifié[39m
+2024-09-26 14:15:50:1550 [31merror[39m: [31mErreur lors de la création d'un signalement: Utilisateur non authentifié[39m
+2024-09-26 16:16:52:1652 [31merror[39m: [31mImpossible de se connecter à la base de données:[39m
+2024-09-26 16:16:52:1652 [31merror[39m: [31mErreur lors de la synchronisation de la base de données:[39m
+2024-09-26 16:16:52:1652 [31merror[39m: [31mUnable to connect to the database:[39m
+2024-09-26 16:16:52:1652 [31merror[39m: [31mImpossible de se connecter à la base de données.[39m
