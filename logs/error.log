@@ -52,3 +52,9 @@
 2024-09-26 16:16:52:1652 [31merror[39m: [31mErreur lors de la synchronisation de la base de données:[39m
 2024-09-26 16:16:52:1652 [31merror[39m: [31mUnable to connect to the database:[39m
 2024-09-26 16:16:52:1652 [31merror[39m: [31mImpossible de se connecter à la base de données.[39m
+2024-09-27 09:31:10:3110 [31merror[39m: [31mErreur lors de la création d'un signalement: Validation error: Validation isIn on category failed[39m
+2024-09-27 09:36:50:3650 [31merror[39m: [31mErreur lors de la création d'un signalement: Validation error: Validation isIn on category failed[39m
+2024-09-27 09:41:45:4145 [31merror[39m: [31mErreur lors de la création d'un signalement: Validation error: Validation isIn on category failed[39m
+2024-09-27 09:42:26:4226 [31merror[39m: [31mErreur lors de la création d'un signalement: Check constraint 'check_category' is violated.[39m
+2024-09-27 09:45:20:4520 [31merror[39m: [31mErreur lors de l'envoi de l'email à undefined: connect ECONNREFUSED 127.0.0.1:587[39m
+2024-09-27 09:46:29:4629 [31merror[39m: [31mErreur lors de l'envoi de l'email à undefined: connect ECONNREFUSED 127.0.0.1:587[39m

@@ -12,7 +12,7 @@ module.exports = (sequelize, Sequelize) => {
     category: {
       type: Sequelize.INTEGER,
       validate: {
-        isIn: [[1, 2, 3, 4]], // Utilisez des nombres au lieu de chaînes
+        isIn: [[0, 1, 2, 3, 4]], // Ajout de 0 pour correspondre aux valeurs du formulaire
       },
       defaultValue: 4,
     },
@@ -24,11 +24,6 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    // Nouveau champ pour stocker les chemins des photos
-    // photos: {
-    //   type: Sequelize.ARRAY(Sequelize.STRING),
-    //   allowNull: true,
-    // },
     photos: {
       type: Sequelize.TEXT,
       allowNull: true,
@@ -40,12 +35,10 @@ module.exports = (sequelize, Sequelize) => {
         this.setDataValue("photos", JSON.stringify(value));
       },
     },
-    // Champ pour indiquer si le signalement a été traité
     isProcessed: {
       type: Sequelize.BOOLEAN,
       defaultValue: false,
     },
-    // Champ pour stocker les commentaires du personnel
     personnelComments: {
       type: Sequelize.TEXT,
       allowNull: true,
